@@ -1,7 +1,7 @@
 import { ADD_TODO, TOGGLE_TODO } from "../actions/types/todo";
 
 const initialState = {
-  allId: [],
+  allIds: [],
   byIds: {},
 };
 
@@ -14,8 +14,10 @@ export default function todoReducer(state = initialState, action) {
         ...state,
 
         allIds: [...state.allIds, id],
+
         byIds: {
           ...state.byIds,
+
           [id]: {
             content,
             complete: false,
@@ -26,6 +28,7 @@ export default function todoReducer(state = initialState, action) {
 
     case TOGGLE_TODO: {
       const { id } = action.payload;
+
       const targetTodo = state.byIds[id];
 
       return {
@@ -42,6 +45,6 @@ export default function todoReducer(state = initialState, action) {
     }
 
     default:
-      break;
+      return state;
   }
 }
