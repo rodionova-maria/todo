@@ -1,4 +1,4 @@
-import { ADD_TODO, DELETE_TODO, FILTER_TODO, TOGGLE_TODO } from "../types/todo"
+import { ADD_TODO, DELETE_TODO, TOGGLE_TODO } from "../types/todo"
 
 let nextTodoId = 0
 
