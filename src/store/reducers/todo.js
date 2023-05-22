@@ -1,50 +1,69 @@
-import { ADD_TODO, TOGGLE_TODO } from "../actions/types/todo";
+import { ADD_TODO, DELETE_TODO, TOGGLE_TODO } from "../actions/types/todo"
 
 const initialState = {
-  allIds: [],
-  byIds: {},
-};
+    allIds: [],
+    byIds: {},
+}
 
 export default function todoReducer(state = initialState, action) {
-  switch (action.type) {
-    case ADD_TODO: {
-      const { id, content } = action.payload;
+    switch (action.type) {
+        case ADD_TODO: {
+            const { id, content } = action.payload
 
-      return {
-        ...state,
+            return {
+                ...state,
 
-        allIds: [...state.allIds, id],
+                allIds: [...state.allIds, id],
 
-        byIds: {
-          ...state.byIds,
+                byIds: {
+                    ...state.byIds,
 
-          [id]: {
-            content,
-            complete: false,
-          },
-        },
-      };
+                    [id]: {
+                        content,
+                        complete: false,
+                    },
+                },
+            }
+        }
+
+        case TOGGLE_TODO: {
+            const { id } = action.payload
+
+            const targetTodo = state.byIds[id]
+
+            return {
+                ...state,
+
+                byIds: {
+                    ...state.byIds,
+
+                    [id]: {
+                        ...targetTodo,
+                        completed: !targetTodo.completed,
+                    },
+                },
+            }
+        }
+
+        case DELETE_TODO: {
+            const { id } = action.payload
+
+            const filteredTodo = [...state.allIds].filter((todoItemId) => {
+                return todoItemId !== id
+            })
+
+            return {
+                ...state,
+
+                allIds: filteredTodo,
+
+                byIds: {
+                    ...state.byIds,
+                },
+            }
+        }
+
+        default:
+            return state
     }
-
-    case TOGGLE_TODO: {
-      const { id } = action.payload;
-
-      const targetTodo = state.byIds[id];
-
-      return {
-        ...state,
-
-        byIds: {
-          ...state.byIds,
-          [id]: {
-            ...targetTodo,
-            completed: !targetTodo.completed,
-          },
-        },
-      };
-    }
-
-    default:
-      return state;
-  }
 }
