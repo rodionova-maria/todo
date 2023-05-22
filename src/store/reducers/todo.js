@@ -20,7 +20,7 @@ export default function todoReducer(state = initialState, action) {
 
                     [id]: {
                         content,
-                        complete: false,
+                        completed: false,
                     },
                 },
             }

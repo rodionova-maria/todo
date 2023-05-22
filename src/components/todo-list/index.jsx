@@ -1,16 +1,28 @@
-import { useSelector } from "react-redux";
-import styles from "./index.module.css";
-import { todosSelector } from "../../store/selectors/todo";
-import { Todo } from "../todo";
+import { useState } from "react"
+import { useSelector } from "react-redux"
+import { todosSelector } from "../../store/selectors/todo"
+import styles from "./index.module.css"
+import { Todo } from "../todo"
 
 export const TodoList = () => {
-  const todos = useSelector(todosSelector);
+    const [isFiltered, setIsFiltered] = useState(false)
 
-  return (
-    <ul className={styles.list}>
-      {todos.map((todo) => (
-        <Todo key={todo.id} todo={todo} />
-      ))}
-    </ul>
-  );
-};
+    const todos = useSelector(todosSelector)
+
+    const getComplited = (todolist) => todolist.filter((item) => item.completed)
+
+    const filteredTodos = isFiltered ? getComplited(todos) : todos
+
+    return (
+        <>
+            <ul className={styles.list}>
+                {filteredTodos.map((todo) => (
+                    <Todo key={todo.id} todo={todo} />
+                ))}
+            </ul>
+            <label className={styles.checkbox_wrapper}>
+                <input type="checkbox" checked={isFiltered} onChange={() => setIsFiltered(!isFiltered)} /> Завершенные
+            </label>
+        </>
+    )
+}

@@ -3,3 +3,8 @@
     text-align: left;
     list-style: none;
 }
+
+.checkbox_wrapper input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+}
