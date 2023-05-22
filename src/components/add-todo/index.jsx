@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addTodo } from "../../store/actions/creators/todo";
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addTodo } from "../../store/slices/todo"
 
 export const AddTodo = () => {
-  const [value, setValue] = useState("");
+    const [value, setValue] = useState("")
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-  const onInputChange = (evt) => {
-    setValue(evt.target.value);
-  };
+    const onInputChange = (evt) => {
+        setValue(evt.target.value)
+    }
 
-  const handleAddTodo = () => {
-    dispatch(addTodo(value));
-    setValue("");
-  };
+    const handleAddTodo = () => {
+        dispatch(addTodo(value))
+        setValue("")
+    }
 
-  return (
-    <div>
-      <input type="text" value={value} onChange={onInputChange} />
-      <button className="add-todo" onClick={handleAddTodo}>
-        Add todo
-      </button>
-    </div>
-  );
-};
+    return (
+        <div>
+            <input type="text" value={value} onChange={onInputChange} />
+            <button className="add-todo" onClick={handleAddTodo}>
+                Add todo
+            </button>
+        </div>
+    )
+}
